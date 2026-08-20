@@ -1,5 +1,5 @@
-import express, { type Response } from 'express';
-import { z } from 'zod';
+import express, { type Response, type Request } from 'express';
+import NewPatientSchema, { newPatientParser, errorMiddleware, type NewPatient } from './utils.ts';
 import { diagnoses } from './data/diagnoses.ts';
 import { patients } from './data/patients.ts';
 import { Gender, type Patient } from './data/patients.ts';
@@ -37,36 +37,28 @@ function generateId(): string {
   return Math.random().toString(36).substring(2, 9);
 }
 
-app.post('/api/patients', (req, res) => {
-  const NewPatientSchema = z.object({
-    name: z.string(),
-    dateOfBirth: z.string(),
-    ssn: z.string(),
-    gender: z.string().refine((g) => isGender(g as string), { message: 'Invalid gender' }),
-    occupation: z.string(),
-  });
+app.post('/api/patients', newPatientParser, (req: Request<unknown, unknown, NewPatient>, res) => {
+  const parsed = NewPatientSchema.parse(req.body);
 
-  try {
-    const parsed = NewPatientSchema.parse(req.body);
-
-    const newPatient: Patient = {
-      id: generateId(),
-      name: parsed.name,
-      dateOfBirth: parsed.dateOfBirth,
-      ssn: parsed.ssn,
-      gender: parsed.gender as Gender,
-      occupation: parsed.occupation,
-    };
-
-    patients.push(newPatient);
-    res.json(newPatient);
-  } catch (error: unknown) {
-    if (error instanceof z.ZodError) {
-      return res.status(400).send({ error: error.issues });
-    }
-    return res.status(400).send({ error: 'malformatted request' });
+  if (!isGender(parsed.gender)) {
+    return res.status(400).send({ error: 'Invalid gender' });
   }
+
+  const newPatient: Patient = {
+    id: generateId(),
+    name: parsed.name,
+    dateOfBirth: parsed.dateOfBirth,
+    ssn: parsed.ssn,
+    gender: parsed.gender as Gender,
+    occupation: parsed.occupation,
+  };
+
+  patients.push(newPatient);
+  res.json(newPatient);
 });
+
+// error handling middleware for validation errors
+app.use(errorMiddleware);
 
 const PORT = 3001;
 app.listen(PORT, () => {
