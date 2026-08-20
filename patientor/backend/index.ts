@@ -1,7 +1,7 @@
 import express, { type Response } from 'express';
 import { diagnoses } from './data/diagnoses.ts';
 import { patients } from './data/patients.ts';
-import type { Patient, Gender } from './data/patients.ts';
+import { Gender, type Patient } from './data/patients.ts';
 
 type NonSensitivePatient = Omit<Patient, 'ssn'>;
 
@@ -28,9 +28,9 @@ app.get('/api/patients', (_req, res: Response<NonSensitivePatient[]>) => {
   res.json(sanitized);
 });
 
-function isGender(g: unknown): g is Gender {
-  return g === 'male' || g === 'female' || g === 'other';
-}
+const isGender = (param: string): param is Gender => {
+  return (Object.values(Gender) as string[]).includes(param);
+};
 
 function generateId(): string {
   return Math.random().toString(36).substring(2, 9);

@@ -1,0 +1,222 @@
+﻿2026-08-20T13:30:02.4569073Z Current runner version: '2.336.0'
+2026-08-20T13:30:02.4607396Z ##[group]Runner Image Provisioner
+2026-08-20T13:30:02.4608929Z Hosted Compute Agent
+2026-08-20T13:30:02.4609921Z Version: 20260729.566
+2026-08-20T13:30:02.4611356Z Commit: cf7153fe6e25b664e8693c24944bf2b00355d109
+2026-08-20T13:30:02.4612752Z Build Date: 2026-07-29T19:17:02Z
+2026-08-20T13:30:02.4613986Z Worker ID: {cddc3a1b-7b31-42ed-bd9c-6d573898a747}
+2026-08-20T13:30:02.4615485Z Azure Region: eastus
+2026-08-20T13:30:02.4616507Z ##[endgroup]
+2026-08-20T13:30:02.4619315Z ##[group]Operating System
+2026-08-20T13:30:02.4620453Z Ubuntu
+2026-08-20T13:30:02.4621633Z 24.04.4
+2026-08-20T13:30:02.4622667Z LTS
+2026-08-20T13:30:02.4623602Z ##[endgroup]
+2026-08-20T13:30:02.4624624Z ##[group]Runner Image
+2026-08-20T13:30:02.4625931Z Image: ubuntu-24.04
+2026-08-20T13:30:02.4627024Z Version: 20260810.271.1
+2026-08-20T13:30:02.4629809Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260810.271/images/ubuntu/Ubuntu2404-Readme.md
+2026-08-20T13:30:02.4632842Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260810.271
+2026-08-20T13:30:02.4634888Z ##[endgroup]
+2026-08-20T13:30:02.4636940Z ##[group]GITHUB_TOKEN Permissions
+2026-08-20T13:30:02.4640010Z Contents: read
+2026-08-20T13:30:02.4640986Z Metadata: read
+2026-08-20T13:30:02.4642339Z Packages: read
+2026-08-20T13:30:02.4643338Z ##[endgroup]
+2026-08-20T13:30:02.4646115Z Secret source: Actions
+2026-08-20T13:30:02.4648253Z Prepare workflow directory
+2026-08-20T13:30:02.5113031Z Prepare all required actions
+2026-08-20T13:30:02.5183568Z Getting action download info
+2026-08-20T13:30:02.7065556Z Download action repository 'actions/checkout@v6' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+2026-08-20T13:30:02.8467122Z Download action repository 'actions/setup-node@v5' (SHA:a0853c24544627f65ddf259abe73b1d18a591444)
+2026-08-20T13:30:02.9898430Z Download action repository 'actions/upload-artifact@v5' (SHA:330a01c490aca151604b8cf639adc76d48f6c5d4)
+2026-08-20T13:30:03.2336534Z Complete job name: test
+2026-08-20T13:30:03.3116931Z ##[group]Run actions/checkout@v6
+2026-08-20T13:30:03.3117805Z with:
+2026-08-20T13:30:03.3118312Z   repository: professionalwebsitedeveloper/part-9
+2026-08-20T13:30:03.3122241Z   token: ***
+2026-08-20T13:30:03.3122664Z   ssh-strict: true
+2026-08-20T13:30:03.3123083Z   ssh-user: git
+2026-08-20T13:30:03.3123512Z   persist-credentials: true
+2026-08-20T13:30:03.3123986Z   clean: true
+2026-08-20T13:30:03.3124416Z   sparse-checkout-cone-mode: true
+2026-08-20T13:30:03.3124928Z   fetch-depth: 1
+2026-08-20T13:30:03.3125352Z   fetch-tags: false
+2026-08-20T13:30:03.3125789Z   show-progress: true
+2026-08-20T13:30:03.3126222Z   lfs: false
+2026-08-20T13:30:03.3126623Z   submodules: false
+2026-08-20T13:30:03.3127054Z   set-safe-directory: true
+2026-08-20T13:30:03.3127550Z   allow-unsafe-pr-checkout: false
+2026-08-20T13:30:03.3128304Z ##[endgroup]
+2026-08-20T13:30:03.4146681Z Syncing repository: professionalwebsitedeveloper/part-9
+2026-08-20T13:30:03.4149286Z ##[group]Getting Git version info
+2026-08-20T13:30:03.4150461Z Working directory is '/home/runner/work/part-9/part-9'
+2026-08-20T13:30:03.4152335Z [command]/usr/bin/git version
+2026-08-20T13:30:03.4173119Z git version 2.54.0
+2026-08-20T13:30:03.4230267Z ##[endgroup]
+2026-08-20T13:30:03.4247101Z Temporarily overriding HOME='/home/runner/work/_temp/79a3e3fe-90c6-473f-9fe7-cd0416343f52' before making global git config changes
+2026-08-20T13:30:03.4249842Z Adding repository directory to the temporary git global config as a safe directory
+2026-08-20T13:30:03.4253872Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/part-9/part-9
+2026-08-20T13:30:03.4314234Z Deleting the contents of '/home/runner/work/part-9/part-9'
+2026-08-20T13:30:03.4323036Z ##[group]Determining repository object format
+2026-08-20T13:30:03.4324964Z ##[endgroup]
+2026-08-20T13:30:03.4326369Z ##[group]Initializing the repository
+2026-08-20T13:30:03.4328768Z [command]/usr/bin/git init /home/runner/work/part-9/part-9
+2026-08-20T13:30:03.4429820Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-08-20T13:30:03.4432355Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-08-20T13:30:03.4434118Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-08-20T13:30:03.4435477Z hint: call:
+2026-08-20T13:30:03.4436134Z hint:
+2026-08-20T13:30:03.4436957Z hint: 	git config --global init.defaultBranch <name>
+2026-08-20T13:30:03.4437975Z hint:
+2026-08-20T13:30:03.4439073Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-08-20T13:30:03.4440790Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-08-20T13:30:03.4442448Z hint:
+2026-08-20T13:30:03.4443208Z hint: 	git branch -m <name>
+2026-08-20T13:30:03.4444057Z hint:
+2026-08-20T13:30:03.4445180Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-08-20T13:30:03.4446901Z Initialized empty Git repository in /home/runner/work/part-9/part-9/.git/
+2026-08-20T13:30:03.4453823Z [command]/usr/bin/git remote add origin https://github.com/professionalwebsitedeveloper/part-9
+2026-08-20T13:30:03.4506248Z ##[endgroup]
+2026-08-20T13:30:03.4507507Z ##[group]Disabling automatic garbage collection
+2026-08-20T13:30:03.4509494Z [command]/usr/bin/git config --local gc.auto 0
+2026-08-20T13:30:03.4554120Z ##[endgroup]
+2026-08-20T13:30:03.4555459Z ##[group]Setting up auth
+2026-08-20T13:30:03.4556534Z Removing SSH command configuration
+2026-08-20T13:30:03.4566878Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-08-20T13:30:03.4620870Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-08-20T13:30:03.5119857Z Removing HTTP extra header
+2026-08-20T13:30:03.5131345Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-08-20T13:30:03.5204350Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-08-20T13:30:03.5442418Z Removing includeIf entries pointing to credentials config files
+2026-08-20T13:30:03.5444595Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-08-20T13:30:03.5482666Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-08-20T13:30:03.5722833Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-56a637f0-beb2-45d9-9a21-2a15088e2e79.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-08-20T13:30:03.5765741Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/part-9/part-9/.git.path /home/runner/work/_temp/git-credentials-56a637f0-beb2-45d9-9a21-2a15088e2e79.config
+2026-08-20T13:30:03.5805775Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/part-9/part-9/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-56a637f0-beb2-45d9-9a21-2a15088e2e79.config
+2026-08-20T13:30:03.5842027Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-56a637f0-beb2-45d9-9a21-2a15088e2e79.config
+2026-08-20T13:30:03.5876573Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-56a637f0-beb2-45d9-9a21-2a15088e2e79.config
+2026-08-20T13:30:03.5908001Z ##[endgroup]
+2026-08-20T13:30:03.5908750Z ##[group]Fetching the repository
+2026-08-20T13:30:03.5916773Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +8d58fe4f70df2988562125d87bc7b4bb494480f0:refs/remotes/origin/main
+2026-08-20T13:30:03.8932464Z From https://github.com/professionalwebsitedeveloper/part-9
+2026-08-20T13:30:03.8934948Z  * [new ref]         8d58fe4f70df2988562125d87bc7b4bb494480f0 -> origin/main
+2026-08-20T13:30:03.8981757Z [command]/usr/bin/git branch --list --remote origin/main
+2026-08-20T13:30:03.9014091Z   origin/main
+2026-08-20T13:30:03.9023458Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+2026-08-20T13:30:03.9052214Z 8d58fe4f70df2988562125d87bc7b4bb494480f0
+2026-08-20T13:30:03.9065733Z ##[endgroup]
+2026-08-20T13:30:03.9067190Z ##[group]Determining the checkout info
+2026-08-20T13:30:03.9068778Z ##[endgroup]
+2026-08-20T13:30:03.9081848Z [command]/usr/bin/git sparse-checkout disable
+2026-08-20T13:30:03.9123145Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-08-20T13:30:03.9156164Z ##[group]Checking out the ref
+2026-08-20T13:30:03.9160716Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-08-20T13:30:03.9280689Z Switched to a new branch 'main'
+2026-08-20T13:30:03.9283109Z branch 'main' set up to track 'origin/main'.
+2026-08-20T13:30:03.9288811Z ##[endgroup]
+2026-08-20T13:30:03.9330730Z [command]/usr/bin/git log -1 --format=%H
+2026-08-20T13:30:03.9358153Z 8d58fe4f70df2988562125d87bc7b4bb494480f0
+2026-08-20T13:30:03.9798527Z ##[group]Run actions/setup-node@v5
+2026-08-20T13:30:03.9799769Z with:
+2026-08-20T13:30:03.9800597Z   node-version: 24
+2026-08-20T13:30:03.9801783Z   always-auth: false
+2026-08-20T13:30:03.9802762Z   check-latest: false
+2026-08-20T13:30:03.9812414Z   token: ***
+2026-08-20T13:30:03.9813346Z   package-manager-cache: true
+2026-08-20T13:30:03.9814416Z ##[endgroup]
+2026-08-20T13:30:04.1239261Z Found in cache @ /opt/hostedtoolcache/node/24.19.0/x64
+2026-08-20T13:30:04.1244844Z (node:2307) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-08-20T13:30:04.1248263Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-08-20T13:30:04.1250628Z ##[group]Environment details
+2026-08-20T13:30:06.4579770Z node: v24.19.0
+2026-08-20T13:30:06.4580566Z npm: 11.17.0
+2026-08-20T13:30:06.4581018Z yarn: 1.22.22
+2026-08-20T13:30:06.4582879Z ##[endgroup]
+2026-08-20T13:30:06.4731722Z ##[group]Run npm install --legacy-peer-deps
+2026-08-20T13:30:06.4732226Z [36;1mnpm install --legacy-peer-deps[0m
+2026-08-20T13:30:06.4780612Z shell: /usr/bin/bash -e {0}
+2026-08-20T13:30:06.4780947Z ##[endgroup]
+2026-08-20T13:30:09.6517787Z npm warn deprecated uuid@9.0.1: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+2026-08-20T13:30:12.5290017Z 
+2026-08-20T13:30:12.5291336Z added 208 packages, and audited 209 packages in 6s
+2026-08-20T13:30:12.5292238Z 
+2026-08-20T13:30:12.5292763Z 55 packages are looking for funding
+2026-08-20T13:30:12.5293525Z   run `npm fund` for details
+2026-08-20T13:30:12.5318041Z 
+2026-08-20T13:30:12.5318658Z 1 moderate severity vulnerability
+2026-08-20T13:30:12.5322292Z 
+2026-08-20T13:30:12.5323104Z To address all issues (including breaking changes), run:
+2026-08-20T13:30:12.5324039Z   npm audit fix --force
+2026-08-20T13:30:12.5324597Z 
+2026-08-20T13:30:12.5325064Z Run `npm audit` for details.
+2026-08-20T13:30:12.5946793Z ##[group]Run npm run lint
+2026-08-20T13:30:12.5947106Z [36;1mnpm run lint[0m
+2026-08-20T13:30:12.5990252Z shell: /usr/bin/bash -e {0}
+2026-08-20T13:30:12.5990513Z ##[endgroup]
+2026-08-20T13:30:12.7135249Z 
+2026-08-20T13:30:12.7136045Z > patientor-backend@1.0.0 lint
+2026-08-20T13:30:12.7136753Z > eslint .
+2026-08-20T13:30:12.7137002Z 
+2026-08-20T13:30:15.1013592Z 
+2026-08-20T13:30:15.1014991Z /home/runner/work/part-9/part-9/patientor/backend/index.ts
+2026-08-20T13:30:15.1048787Z ##[error]  37:3   error  Unsafe return of a value of type error            @typescript-eslint/no-unsafe-return
+2026-08-20T13:30:15.1060215Z ##[error]  37:10  error  Unsafe call of a type that could not be resolved  @typescript-eslint/no-unsafe-call
+2026-08-20T13:30:15.1062070Z 
+2026-08-20T13:30:15.1062745Z ✖ 2 problems (2 errors, 0 warnings)
+2026-08-20T13:30:15.1063415Z 
+2026-08-20T13:30:15.2211819Z ##[error]Process completed with exit code 1.
+2026-08-20T13:30:15.2348080Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-08-20T13:30:15.2350382Z ##[group]Run actions/upload-artifact@v5
+2026-08-20T13:30:15.2350846Z with:
+2026-08-20T13:30:15.2351447Z   name: playwright-report
+2026-08-20T13:30:15.2351920Z   path: patientor-api-tests/playwright-report/
+2026-08-20T13:30:15.2352426Z   retention-days: 30
+2026-08-20T13:30:15.2352789Z   if-no-files-found: warn
+2026-08-20T13:30:15.2353171Z   compression-level: 6
+2026-08-20T13:30:15.2353535Z   overwrite: false
+2026-08-20T13:30:15.2353887Z   include-hidden-files: false
+2026-08-20T13:30:15.2354285Z ##[endgroup]
+2026-08-20T13:30:15.4140588Z (node:2377) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-08-20T13:30:15.4143171Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-08-20T13:30:15.4173675Z ##[warning]No files were found with the provided path: patientor-api-tests/playwright-report/. No artifacts will be uploaded.
+2026-08-20T13:30:15.4425725Z ##[group]Run if [ -f server.pid ]; then
+2026-08-20T13:30:15.4426256Z [36;1mif [ -f server.pid ]; then[0m
+2026-08-20T13:30:15.4426712Z [36;1m  kill $(cat server.pid) || true[0m
+2026-08-20T13:30:15.4427175Z [36;1mfi[0m
+2026-08-20T13:30:15.4474481Z shell: /usr/bin/bash -e {0}
+2026-08-20T13:30:15.4474874Z ##[endgroup]
+2026-08-20T13:30:15.4723785Z Post job cleanup.
+2026-08-20T13:30:15.5652238Z [command]/usr/bin/git version
+2026-08-20T13:30:15.5705172Z git version 2.54.0
+2026-08-20T13:30:15.5739130Z Temporarily overriding HOME='/home/runner/work/_temp/2a863f9e-73c4-4bc2-bf39-87de6115777f' before making global git config changes
+2026-08-20T13:30:15.5741083Z Adding repository directory to the temporary git global config as a safe directory
+2026-08-20T13:30:15.5766577Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/part-9/part-9
+2026-08-20T13:30:15.5790066Z Removing SSH command configuration
+2026-08-20T13:30:15.5790978Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-08-20T13:30:15.5852904Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-08-20T13:30:15.6118258Z Removing HTTP extra header
+2026-08-20T13:30:15.6119443Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-08-20T13:30:15.6159709Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-08-20T13:30:15.6414965Z Removing includeIf entries pointing to credentials config files
+2026-08-20T13:30:15.6424271Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-08-20T13:30:15.6458314Z includeif.gitdir:/home/runner/work/part-9/part-9/.git.path
+2026-08-20T13:30:15.6459845Z includeif.gitdir:/home/runner/work/part-9/part-9/.git/worktrees/*.path
+2026-08-20T13:30:15.6461466Z includeif.gitdir:/github/workspace/.git.path
+2026-08-20T13:30:15.6462675Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-08-20T13:30:15.6469701Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/part-9/part-9/.git.path
+2026-08-20T13:30:15.6494781Z /home/runner/work/_temp/git-credentials-56a637f0-beb2-45d9-9a21-2a15088e2e79.config
+2026-08-20T13:30:15.6519642Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/part-9/part-9/.git.path /home/runner/work/_temp/git-credentials-56a637f0-beb2-45d9-9a21-2a15088e2e79.config
+2026-08-20T13:30:15.6555066Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/part-9/part-9/.git/worktrees/*.path
+2026-08-20T13:30:15.6572669Z /home/runner/work/_temp/git-credentials-56a637f0-beb2-45d9-9a21-2a15088e2e79.config
+2026-08-20T13:30:15.6591475Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/part-9/part-9/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-56a637f0-beb2-45d9-9a21-2a15088e2e79.config
+2026-08-20T13:30:15.6620355Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-08-20T13:30:15.6645181Z /github/runner_temp/git-credentials-56a637f0-beb2-45d9-9a21-2a15088e2e79.config
+2026-08-20T13:30:15.6663216Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-56a637f0-beb2-45d9-9a21-2a15088e2e79.config
+2026-08-20T13:30:15.6690389Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-08-20T13:30:15.6732572Z /github/runner_temp/git-credentials-56a637f0-beb2-45d9-9a21-2a15088e2e79.config
+2026-08-20T13:30:15.6735565Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-56a637f0-beb2-45d9-9a21-2a15088e2e79.config
+2026-08-20T13:30:15.6774405Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-08-20T13:30:15.7015003Z Removing credentials config '/home/runner/work/_temp/git-credentials-56a637f0-beb2-45d9-9a21-2a15088e2e79.config'
+2026-08-20T13:30:15.7177653Z Cleaning up orphan processes
+2026-08-20T13:30:15.7467308Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
