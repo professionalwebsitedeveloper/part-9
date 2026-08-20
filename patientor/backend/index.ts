@@ -1,6 +1,7 @@
 import express from 'express';
 import { diagnoses } from './data/diagnoses.ts';
-import { patients, Patient, Gender } from './data/patients.ts';
+import { patients } from './data/patients.ts';
+import type { Patient, Gender } from './data/patients.ts';
 
 const app = express();
 app.use(express.json());
