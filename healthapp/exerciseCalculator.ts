@@ -8,7 +8,7 @@ interface ExerciseResult {
   average: number;
 }
 
-const calculateExercises = (dailyHours: number[], target: number): ExerciseResult => {
+export const calculateExercises = (dailyHours: number[], target: number): ExerciseResult => {
   const periodLength = dailyHours.length;
   const trainingDays = dailyHours.filter(h => h > 0).length;
   const total = dailyHours.reduce((sum, h) => sum + h, 0);
@@ -50,13 +50,15 @@ const parseExerciseArguments = (args: string[]): { target: number; dailyHours: n
   return { target, dailyHours };
 };
 
-try {
-  const { target, dailyHours } = parseExerciseArguments(process.argv);
-  console.log(calculateExercises(dailyHours, target));
-} catch (error: unknown) {
-  let errorMessage = 'Something bad happened.';
-  if (error instanceof Error) {
-    errorMessage += ' Error: ' + error.message;
+if (process.argv[1] === import.meta.filename) {
+  try {
+    const { target, dailyHours } = parseExerciseArguments(process.argv);
+    console.log(calculateExercises(dailyHours, target));
+  } catch (error: unknown) {
+    let errorMessage = 'Something bad happened.';
+    if (error instanceof Error) {
+      errorMessage += ' Error: ' + error.message;
+    }
+    console.log(errorMessage);
   }
-  console.log(errorMessage);
 }
