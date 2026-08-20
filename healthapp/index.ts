@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import { calculateBmi } from './bmiCalculator.ts';
 import { calculateExercises } from './exerciseCalculator.ts';
 
@@ -31,21 +31,34 @@ app.get('/bmi', (req, res) => {
   return res.json({ weight: w, height: h, bmi });
 });
 
-app.post('/exercises', (req, res) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const body: any = req.body;
-  if (!body || body.daily_exercises === undefined || body.target === undefined) {
+app.post('/exercises', (req: Request, res: Response) => {
+  const body: unknown = req.body;
+
+  if (typeof body !== 'object' || body === null) {
     return res.status(400).json({ error: 'parameters missing' });
   }
 
-  const daily = body.daily_exercises;
-  const target = body.target;
+  const record = body as Record<string, unknown>;
 
-  if (!Array.isArray(daily) || isNaN(Number(target)) || daily.some((d: any) => isNaN(Number(d)))) {
+  if (!('daily_exercises' in record) || !('target' in record)) {
+    return res.status(400).json({ error: 'parameters missing' });
+  }
+
+  const daily = record.daily_exercises;
+  const target = record.target;
+
+  if (!Array.isArray(daily) || (typeof target !== 'number' && typeof target !== 'string')) {
     return res.status(400).json({ error: 'malformatted parameters' });
   }
 
-  const dailyNums = daily.map((d: any) => Number(d));
+  const dailyValid = daily.every((d) => typeof d === 'number' || (typeof d === 'string' && !isNaN(Number(d))));
+  const targetValid = typeof target === 'number' || (typeof target === 'string' && !isNaN(Number(target)));
+
+  if (!dailyValid || !targetValid) {
+    return res.status(400).json({ error: 'malformatted parameters' });
+  }
+
+  const dailyNums = daily.map((d) => Number(d));
   const result = calculateExercises(dailyNums, Number(target));
   return res.json(result);
 });
