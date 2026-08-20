@@ -56,7 +56,7 @@ app.post('/api/patients', (req, res) => {
     name,
     dateOfBirth,
     ssn,
-    gender: gender as Gender,
+    gender,
     occupation,
   };
 
