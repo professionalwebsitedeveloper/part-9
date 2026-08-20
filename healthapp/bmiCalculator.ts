@@ -3,7 +3,7 @@ interface BmiValues {
   weightKg: number;
 }
 
-const calculateBmi = (heightCm: number, weightKg: number): string => {
+export const calculateBmi = (heightCm: number, weightKg: number): string => {
   const heightM = heightCm / 100;
   const bmi = weightKg / (heightM * heightM);
 
@@ -30,13 +30,15 @@ const parseArguments = (args: string[]): BmiValues => {
   };
 };
 
-try {
-  const { heightCm, weightKg } = parseArguments(process.argv);
-  console.log(calculateBmi(heightCm, weightKg));
-} catch (error: unknown) {
-  let errorMessage = 'Something bad happened.';
-  if (error instanceof Error) {
-    errorMessage += ' Error: ' + error.message;
+if (process.argv[1] === import.meta.filename) {
+  try {
+    const { heightCm, weightKg } = parseArguments(process.argv);
+    console.log(calculateBmi(heightCm, weightKg));
+  } catch (error: unknown) {
+    let errorMessage = 'Something bad happened.';
+    if (error instanceof Error) {
+      errorMessage += ' Error: ' + error.message;
+    }
+    console.log(errorMessage);
   }
-  console.log(errorMessage);
 }
