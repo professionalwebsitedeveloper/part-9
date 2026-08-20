@@ -1,7 +1,9 @@
-import express from 'express';
+import express, { type Response } from 'express';
 import { diagnoses } from './data/diagnoses.ts';
 import { patients } from './data/patients.ts';
 import type { Patient, Gender } from './data/patients.ts';
+
+type NonSensitivePatient = Omit<Patient, 'ssn'>;
 
 const app = express();
 app.use(express.json());
@@ -15,8 +17,8 @@ app.get('/api/diagnoses', (_req, res) => {
 });
 
 // return patients without ssn for list
-app.get('/api/patients', (_req, res) => {
-  const sanitized = patients.map((p) => ({
+app.get('/api/patients', (_req, res: Response<NonSensitivePatient[]>) => {
+  const sanitized: NonSensitivePatient[] = patients.map((p) => ({
     id: p.id,
     name: p.name,
     dateOfBirth: p.dateOfBirth,
