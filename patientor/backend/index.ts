@@ -1,4 +1,5 @@
 import express, { type Response } from 'express';
+import { z } from 'zod';
 import { diagnoses } from './data/diagnoses.ts';
 import { patients } from './data/patients.ts';
 import { Gender, type Patient } from './data/patients.ts';
@@ -37,33 +38,34 @@ function generateId(): string {
 }
 
 app.post('/api/patients', (req, res) => {
-  const body: unknown = req.body;
-  if (typeof body !== 'object' || body === null) {
+  const NewPatientSchema = z.object({
+    name: z.string(),
+    dateOfBirth: z.string(),
+    ssn: z.string(),
+    gender: z.string().refine((g) => isGender(g as string), { message: 'Invalid gender' }),
+    occupation: z.string(),
+  });
+
+  try {
+    const parsed = NewPatientSchema.parse(req.body);
+
+    const newPatient: Patient = {
+      id: generateId(),
+      name: parsed.name,
+      dateOfBirth: parsed.dateOfBirth,
+      ssn: parsed.ssn,
+      gender: parsed.gender as Gender,
+      occupation: parsed.occupation,
+    };
+
+    patients.push(newPatient);
+    res.json(newPatient);
+  } catch (error: unknown) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).send({ error: error.issues });
+    }
     return res.status(400).send({ error: 'malformatted request' });
   }
-
-  const rec = body as Record<string, unknown>;
-  const name = rec.name as string | undefined;
-  const dateOfBirth = rec.dateOfBirth as string | undefined;
-  const ssn = rec.ssn as string | undefined;
-  const gender = rec.gender;
-  const occupation = rec.occupation as string | undefined;
-
-  if (!name || !dateOfBirth || !ssn || !occupation || !isGender(gender)) {
-    return res.status(400).send({ error: 'missing or invalid fields' });
-  }
-
-  const newPatient: Patient = {
-    id: generateId(),
-    name,
-    dateOfBirth,
-    ssn,
-    gender,
-    occupation,
-  };
-
-  patients.push(newPatient);
-  res.json(newPatient);
 });
 
 const PORT = 3001;
