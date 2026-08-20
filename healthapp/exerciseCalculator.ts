@@ -38,6 +38,25 @@ const calculateExercises = (dailyHours: number[], target: number): ExerciseResul
   };
 };
 
-// Example call with hard-coded values
-const result = calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2);
-console.log(result);
+const parseExerciseArguments = (args: string[]): { target: number; dailyHours: number[] } => {
+  if (args.length < 4) throw new Error('Not enough arguments: provide target and daily hours');
+
+  const values = args.slice(2).map((a) => Number(a));
+  if (values.some((v) => isNaN(v))) throw new Error('Provided values were not numbers!');
+
+  const target = values[0];
+  const dailyHours = values.slice(1);
+
+  return { target, dailyHours };
+};
+
+try {
+  const { target, dailyHours } = parseExerciseArguments(process.argv);
+  console.log(calculateExercises(dailyHours, target));
+} catch (error: unknown) {
+  let errorMessage = 'Something bad happened.';
+  if (error instanceof Error) {
+    errorMessage += ' Error: ' + error.message;
+  }
+  console.log(errorMessage);
+}
