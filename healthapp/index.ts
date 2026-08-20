@@ -1,4 +1,5 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+import type { Request, Response } from 'express';
 import { calculateBmi } from './bmiCalculator.ts';
 import { calculateExercises } from './exerciseCalculator.ts';
 
