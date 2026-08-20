@@ -1,4 +1,5 @@
 name: Patientor API Tests
+# Enabled: triggers on push to main and master
 
 on:
   push:
