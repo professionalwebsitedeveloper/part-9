@@ -49,7 +49,7 @@ app.post('/api/patients', newPatientParser, (req: Request<unknown, unknown, NewP
     name: parsed.name,
     dateOfBirth: parsed.dateOfBirth,
     ssn: parsed.ssn,
-    gender: parsed.gender as Gender,
+    gender: parsed.gender,
     occupation: parsed.occupation,
   };
 
