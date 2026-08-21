@@ -87,25 +87,46 @@ const App = () => {
       <form onSubmit={addDiary}>
         <div>
           <label htmlFor="date">date</label>
-          <input id="date" value={date} onChange={({ target }) => setDate(target.value)} />
-        </div>
-
-        <div>
-          <label htmlFor="visibility">visibility</label>
           <input
-            id="visibility"
-            value={visibility}
-            onChange={({ target }) => setVisibility(target.value as Visibility)}
+            id="date"
+            type="date"
+            value={date}
+            onChange={({ target }) => setDate(target.value)}
           />
         </div>
 
         <div>
-          <label htmlFor="weather">weather</label>
-          <input
-            id="weather"
-            value={weather}
-            onChange={({ target }) => setWeather(target.value as Weather)}
-          />
+          <label>visibility</label>
+          <div>
+            {(['great', 'good', 'ok', 'poor'] as Visibility[]).map((option) => (
+              <label key={option}>
+                <input
+                  type="radio"
+                  name="visibility"
+                  checked={visibility === option}
+                  onChange={() => setVisibility(option)}
+                />
+                {option}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <label>weather</label>
+          <div>
+            {(['sunny', 'rainy', 'cloudy', 'stormy', 'windy'] as Weather[]).map((option) => (
+              <label key={option}>
+                <input
+                  type="radio"
+                  name="weather"
+                  checked={weather === option}
+                  onChange={() => setWeather(option)}
+                />
+                {option}
+              </label>
+            ))}
+          </div>
         </div>
 
         <div>
