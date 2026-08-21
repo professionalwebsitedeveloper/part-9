@@ -7,6 +7,8 @@ import {
   Typography,
   Stack,
   Divider,
+  List,
+  ListItem,
 } from '@mui/material';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
@@ -66,10 +68,24 @@ const PatientPage = () => {
           {patient.entries.length === 0 ? (
             <Typography variant="body2">No entries recorded.</Typography>
           ) : (
-            patient.entries.map((entry, index) => (
-              <Typography key={index} variant="body2">
-                Entry {index + 1}: {JSON.stringify(entry)}
-              </Typography>
+            patient.entries.map((entry) => (
+              <Box key={entry.id} sx={{ border: '1px solid #ddd', borderRadius: 1, p: 2 }}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+                  {entry.date} - {entry.type}
+                </Typography>
+                <Typography variant="body2" sx={{ mt: 1 }}>
+                  {entry.description}
+                </Typography>
+                {entry.diagnosisCodes && entry.diagnosisCodes.length > 0 && (
+                  <List dense sx={{ pl: 2, mb: 0 }}>
+                    {entry.diagnosisCodes.map((code) => (
+                      <ListItem key={code} sx={{ display: 'list-item', py: 0 }}>
+                        {code}
+                      </ListItem>
+                    ))}
+                  </List>
+                )}
+              </Box>
             ))
           )}
         </Stack>

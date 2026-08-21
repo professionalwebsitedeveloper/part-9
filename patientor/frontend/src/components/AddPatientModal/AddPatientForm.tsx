@@ -23,15 +23,15 @@ const AddPatientForm = ({ onCancel, onSubmit }: Props) => {
   const [occupation, setOccupation] = useState('');
   const [ssn, setSsn] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
-  const [gender, setGender] = useState(Gender.Other);
+  const [gender, setGender] = useState<Gender>(Gender.Other);
 
   const onGenderChange = (event: SelectChangeEvent<string>) => {
     event.preventDefault();
-    if ( typeof event.target.value === "string") {
+    if (typeof event.target.value === 'string') {
       const value = event.target.value;
-      const gender = Object.values(Gender).find(g => g.toString() === value);
-      if (gender) {
-        setGender(gender);
+      const selectedGender = Object.values(Gender).find((g) => g === value) as Gender | undefined;
+      if (selectedGender) {
+        setGender(selectedGender);
       }
     }
   };
