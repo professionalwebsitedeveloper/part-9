@@ -14,10 +14,14 @@ import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
 import TransgenderIcon from '@mui/icons-material/Transgender';
 
-import { Patient } from '../../types';
+import { Diagnosis, Patient } from '../../types';
 import patientService from '../../services/patients';
 
-const PatientPage = () => {
+interface Props {
+  diagnoses: Diagnosis[];
+}
+
+const PatientPage = ({ diagnoses }: Props) => {
   const { id } = useParams<{ id: string }>();
   const [patient, setPatient] = useState<Patient | null>(null);
 
@@ -78,11 +82,15 @@ const PatientPage = () => {
                 </Typography>
                 {entry.diagnosisCodes && entry.diagnosisCodes.length > 0 && (
                   <List dense sx={{ pl: 2, mb: 0 }}>
-                    {entry.diagnosisCodes.map((code) => (
-                      <ListItem key={code} sx={{ display: 'list-item', py: 0 }}>
-                        {code}
-                      </ListItem>
-                    ))}
+                    {entry.diagnosisCodes.map((code) => {
+                      const diagnosis = diagnoses.find((item) => item.code === code);
+
+                      return (
+                        <ListItem key={code} sx={{ display: 'list-item', py: 0 }}>
+                          {code} {diagnosis ? diagnosis.name : 'Unknown diagnosis'}
+                        </ListItem>
+                      );
+                    })}
                   </List>
                 )}
               </Box>
