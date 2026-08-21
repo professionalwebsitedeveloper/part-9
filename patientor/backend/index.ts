@@ -4,7 +4,7 @@ import { diagnoses } from './data/diagnoses.ts';
 import { patients } from './data/patients.ts';
 import { Gender, type Patient } from './data/patients.ts';
 
-type NonSensitivePatient = Omit<Patient, 'ssn'>;
+type NonSensitivePatient = Omit<Patient, 'ssn' | 'entries'>;
 
 const app = express();
 app.use(express.json());
@@ -29,6 +29,16 @@ app.get('/api/patients', (_req, res: Response<NonSensitivePatient[]>) => {
   res.json(sanitized);
 });
 
+app.get('/api/patients/:id', (req, res: Response<Patient | { error: string }>) => {
+  const patient = patients.find((p) => p.id === req.params.id);
+
+  if (!patient) {
+    return res.status(404).json({ error: 'Patient not found' });
+  }
+
+  return res.json(patient);
+});
+
 const isGender = (param: string): param is Gender => {
   return (Object.values(Gender) as string[]).includes(param);
 };
@@ -51,10 +61,11 @@ app.post('/api/patients', newPatientParser, (req: Request<unknown, unknown, NewP
     ssn: parsed.ssn,
     gender: parsed.gender,
     occupation: parsed.occupation,
+    entries: [],
   };
 
   patients.push(newPatient);
-  res.json(newPatient);
+  return res.json(newPatient);
 });
 
 // error handling middleware for validation errors

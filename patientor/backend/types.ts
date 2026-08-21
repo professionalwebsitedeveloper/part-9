@@ -6,6 +6,9 @@ export interface Diagnosis {
 
 export type Gender = 'male' | 'female' | 'other';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface Entry {}
+
 export interface Patient {
   id: string;
   name: string;
@@ -13,4 +16,5 @@ export interface Patient {
   ssn: string;
   gender: Gender;
   occupation: string;
+  entries: Entry[];
 }

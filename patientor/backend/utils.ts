@@ -22,7 +22,8 @@ export const errorMiddleware = (error: unknown, _req: Request, res: Response, ne
   if (error instanceof z.ZodError) {
     return res.status(400).send({ error: error.issues });
   }
-  next(error);
+
+  return next(error);
 };
 
 export type NewPatient = z.infer<typeof NewPatientSchema>;

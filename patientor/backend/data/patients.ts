@@ -13,7 +13,10 @@ export interface Patient {
   ssn: string;
   gender: Gender;
   occupation: string;
+  entries: Entry[];
 }
+
+export interface Entry {}
 
 export const patients: Patient[] = [
   {
@@ -23,6 +26,7 @@ export const patients: Patient[] = [
     ssn: '010190-1234',
     gender: 'male',
     occupation: 'Engineer',
+    entries: [],
   },
   {
     id: '2',
@@ -31,5 +35,6 @@ export const patients: Patient[] = [
     ssn: '120585-4321',
     gender: 'female',
     occupation: 'Teacher',
+    entries: [],
   },
 ];
