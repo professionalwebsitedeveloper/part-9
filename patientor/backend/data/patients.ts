@@ -16,6 +16,7 @@ export interface Patient {
   entries: Entry[];
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface Entry {}
 
 export const patients: Patient[] = [
