@@ -7,8 +7,6 @@ import {
   Typography,
   Stack,
   Divider,
-  List,
-  ListItem,
 } from '@mui/material';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
@@ -16,6 +14,7 @@ import TransgenderIcon from '@mui/icons-material/Transgender';
 
 import { Diagnosis, Patient } from '../../types';
 import patientService from '../../services/patients';
+import EntryDetails from '../EntryDetails';
 
 interface Props {
   diagnoses: Diagnosis[];
@@ -73,27 +72,7 @@ const PatientPage = ({ diagnoses }: Props) => {
             <Typography variant="body2">No entries recorded.</Typography>
           ) : (
             patient.entries.map((entry) => (
-              <Box key={entry.id} sx={{ border: '1px solid #ddd', borderRadius: 1, p: 2 }}>
-                <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-                  {entry.date} - {entry.type}
-                </Typography>
-                <Typography variant="body2" sx={{ mt: 1 }}>
-                  {entry.description}
-                </Typography>
-                {entry.diagnosisCodes && entry.diagnosisCodes.length > 0 && (
-                  <List dense sx={{ pl: 2, mb: 0 }}>
-                    {entry.diagnosisCodes.map((code) => {
-                      const diagnosis = diagnoses.find((item) => item.code === code);
-
-                      return (
-                        <ListItem key={code} sx={{ display: 'list-item', py: 0 }}>
-                          {code} {diagnosis ? diagnosis.name : 'Unknown diagnosis'}
-                        </ListItem>
-                      );
-                    })}
-                  </List>
-                )}
-              </Box>
+              <EntryDetails key={entry.id} entry={entry} diagnoses={diagnoses} />
             ))
           )}
         </Stack>
