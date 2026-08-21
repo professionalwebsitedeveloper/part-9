@@ -3,7 +3,7 @@ import { z } from 'zod';
 import NewPatientSchema, { newPatientParser, errorMiddleware, type NewPatient } from './utils.ts';
 import { diagnoses } from './data/diagnoses.ts';
 import { patients, HealthCheckRating } from './data/patients.ts';
-import { Gender, type Patient, type Entry, type BaseEntry } from './data/patients.ts';
+import { Gender, type Patient, type Entry } from './data/patients.ts';
 
 type NonSensitivePatient = Omit<Patient, 'ssn' | 'entries'>;
 
@@ -127,7 +127,7 @@ app.post('/api/patients/:id/entries', (req: Request<{ id: string }>, res: Respon
     return res.json(newEntry);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return res.status(400).json({ error: error.issues });
+      return res.status(400).json({ error: error.issues.map((issue) => issue.message).join(', ') });
     }
     return res.status(400).json({ error: 'Invalid entry' });
   }
