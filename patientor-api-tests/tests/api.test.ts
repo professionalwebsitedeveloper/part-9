@@ -115,4 +115,34 @@ test.describe('Patientor API', () => {
       expect(response.status()).toBe(400);
     });
   });
+
+  test.describe('POST /api/patients/:id/entries', () => {
+    test('should add a health check entry to an existing patient', async ({ request }) => {
+      const patientId = 'd2773336-f723-11e9-8f0b-362b9e155667';
+      const newEntry = {
+        date: '2024-01-15',
+        type: 'HealthCheck',
+        specialist: 'Dr. Test',
+        description: 'Routine checkup',
+        healthCheckRating: 0,
+      };
+
+      const response = await request.post(`/api/patients/${patientId}/entries`, {
+        data: newEntry,
+      });
+
+      expect(response.ok()).toBeTruthy();
+      expect(response.status()).toBe(200);
+
+      const body = await response.json();
+      expect(body).toHaveProperty('id');
+      expect(body).toMatchObject({
+        date: newEntry.date,
+        type: newEntry.type,
+        specialist: newEntry.specialist,
+        description: newEntry.description,
+        healthCheckRating: newEntry.healthCheckRating,
+      });
+    });
+  });
 });

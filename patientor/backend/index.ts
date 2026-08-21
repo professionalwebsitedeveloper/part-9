@@ -1,8 +1,9 @@
 import express, { type Response, type Request } from 'express';
+import { z } from 'zod';
 import NewPatientSchema, { newPatientParser, errorMiddleware, type NewPatient } from './utils.ts';
 import { diagnoses } from './data/diagnoses.ts';
-import { patients } from './data/patients.ts';
-import { Gender, type Patient } from './data/patients.ts';
+import { patients, HealthCheckRating } from './data/patients.ts';
+import { Gender, type Patient, type Entry, type BaseEntry } from './data/patients.ts';
 
 type NonSensitivePatient = Omit<Patient, 'ssn' | 'entries'>;
 
@@ -66,6 +67,70 @@ app.post('/api/patients', newPatientParser, (req: Request<unknown, unknown, NewP
 
   patients.push(newPatient);
   return res.json(newPatient);
+});
+
+const BaseEntrySchema = z.object({
+  description: z.string(),
+  date: z.string(),
+  specialist: z.string(),
+  diagnosisCodes: z.array(z.string()).optional(),
+});
+
+const HealthCheckEntrySchema = BaseEntrySchema.extend({
+  type: z.literal('HealthCheck'),
+  healthCheckRating: z.union([
+    z.literal(HealthCheckRating.Healthy),
+    z.literal(HealthCheckRating.LowRisk),
+    z.literal(HealthCheckRating.HighRisk),
+    z.literal(HealthCheckRating.CriticalRisk),
+  ]),
+});
+
+const HospitalEntrySchema = BaseEntrySchema.extend({
+  type: z.literal('Hospital'),
+  discharge: z.object({
+    date: z.string(),
+    criteria: z.string(),
+  }),
+});
+
+const OccupationalHealthcareEntrySchema = BaseEntrySchema.extend({
+  type: z.literal('OccupationalHealthcare'),
+  employerName: z.string(),
+  sickLeave: z.object({
+    startDate: z.string(),
+    endDate: z.string(),
+  }).optional(),
+});
+
+const EntrySchema = z.union([
+  HospitalEntrySchema,
+  OccupationalHealthcareEntrySchema,
+  HealthCheckEntrySchema,
+]);
+
+app.post('/api/patients/:id/entries', (req: Request<{ id: string }>, res: Response<Entry | { error: string }>) => {
+  const patient = patients.find((p) => p.id === req.params.id);
+
+  if (!patient) {
+    return res.status(404).json({ error: 'Patient not found' });
+  }
+
+  try {
+    const parsed = EntrySchema.parse(req.body) as Entry;
+    const newEntry: Entry = {
+      ...parsed,
+      id: generateId(),
+    };
+
+    patient.entries.push(newEntry);
+    return res.json(newEntry);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ error: error.issues });
+    }
+    return res.status(400).json({ error: 'Invalid entry' });
+  }
 });
 
 // error handling middleware for validation errors
