@@ -4,12 +4,43 @@ import type { DiaryEntry, NewDiaryEntry, Visibility, Weather } from './types'
 
 const baseUrl = 'http://localhost:3000/api/diaries'
 
+const parseErrorMessage = (error: unknown): string => {
+  if (axios.isAxiosError(error)) {
+    const errorData = error.response?.data as
+      | { error?: Array<{ path?: string[]; message?: string }> }
+      | undefined
+
+    const firstError = errorData?.error?.[0]
+
+    if (firstError) {
+      const field = firstError.path?.[0] ?? 'field'
+      const message = firstError.message ?? 'unknown error'
+      const received = message.includes('received') ? message.split('received')[1]?.trim() : ''
+
+      if (received) {
+        return `Incorrect ${field}: ${received}`
+      }
+
+      return `Incorrect ${field}: ${message}`
+    }
+
+    if (typeof error.response?.data === 'string') {
+      return error.response.data
+    }
+
+    return error.message
+  }
+
+  return 'Unknown error'
+}
+
 const App = () => {
   const [diaries, setDiaries] = useState<DiaryEntry[]>([])
   const [date, setDate] = useState('')
   const [weather, setWeather] = useState<Weather>('sunny')
   const [visibility, setVisibility] = useState<Visibility>('great')
   const [comment, setComment] = useState('')
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     axios
@@ -24,6 +55,7 @@ const App = () => {
 
   const addDiary = (event: React.SyntheticEvent) => {
     event.preventDefault()
+    setError(null)
 
     const newDiary: NewDiaryEntry = {
       date,
@@ -41,73 +73,56 @@ const App = () => {
         setVisibility('great')
         setComment('')
       })
-      .catch((error) => {
-        console.error('Error adding diary:', error)
+      .catch((err) => {
+        setError(parseErrorMessage(err))
       })
   }
 
   return (
     <div>
-      <h1>Flight Diaries</h1>
+      <h1>Add new entry</h1>
+
+      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
 
       <form onSubmit={addDiary}>
         <div>
-          <label htmlFor="date">Date:</label>
+          <label htmlFor="date">date</label>
           <input id="date" value={date} onChange={({ target }) => setDate(target.value)} />
         </div>
 
         <div>
-          <label htmlFor="weather">Weather:</label>
-          <select
-            id="weather"
-            value={weather}
-            onChange={({ target }) => setWeather(target.value as Weather)}
-          >
-            <option value="sunny">sunny</option>
-            <option value="rainy">rainy</option>
-            <option value="cloudy">cloudy</option>
-            <option value="stormy">stormy</option>
-            <option value="windy">windy</option>
-          </select>
-        </div>
-
-        <div>
-          <label htmlFor="visibility">Visibility:</label>
-          <select
+          <label htmlFor="visibility">visibility</label>
+          <input
             id="visibility"
             value={visibility}
             onChange={({ target }) => setVisibility(target.value as Visibility)}
-          >
-            <option value="great">great</option>
-            <option value="good">good</option>
-            <option value="ok">ok</option>
-            <option value="poor">poor</option>
-          </select>
+          />
         </div>
 
         <div>
-          <label htmlFor="comment">Comment:</label>
+          <label htmlFor="weather">weather</label>
           <input
-            id="comment"
-            value={comment}
-            onChange={({ target }) => setComment(target.value)}
+            id="weather"
+            value={weather}
+            onChange={({ target }) => setWeather(target.value as Weather)}
           />
+        </div>
+
+        <div>
+          <label htmlFor="comment">comment</label>
+          <input id="comment" value={comment} onChange={({ target }) => setComment(target.value)} />
         </div>
 
         <button type="submit">add</button>
       </form>
 
+      <h2>Diary entries</h2>
       <ul>
         {diaries.map((diary) => (
           <li key={diary.id}>
-            <h2>{diary.date}</h2>
-            <p>
-              <strong>Weather:</strong> {diary.weather}
-            </p>
-            <p>
-              <strong>Visibility:</strong> {diary.visibility}
-            </p>
-            {diary.comment && <p>{diary.comment}</p>}
+            <h3>{diary.date}</h3>
+            <p>visibility: {diary.visibility}</p>
+            <p>weather: {diary.weather}</p>
           </li>
         ))}
       </ul>
