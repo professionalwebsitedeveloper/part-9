@@ -7,14 +7,17 @@ import {
   Typography,
   Stack,
   Divider,
+  Button,
 } from '@mui/material';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
 import TransgenderIcon from '@mui/icons-material/Transgender';
+import axios from 'axios';
 
-import { Diagnosis, Patient } from '../../types';
+import { Diagnosis, Patient, type HealthCheckEntry } from '../../types';
 import patientService from '../../services/patients';
 import EntryDetails from '../EntryDetails';
+import AddEntryModal from '../AddEntryModal';
 
 interface Props {
   diagnoses: Diagnosis[];
@@ -23,19 +26,40 @@ interface Props {
 const PatientPage = ({ diagnoses }: Props) => {
   const { id } = useParams<{ id: string }>();
   const [patient, setPatient] = useState<Patient | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [error, setError] = useState<string>();
+
+  const fetchPatient = async () => {
+    if (!id) {
+      return;
+    }
+
+    const fetchedPatient = await patientService.getById(id);
+    setPatient(fetchedPatient);
+  };
 
   useEffect(() => {
-    const fetchPatient = async () => {
-      if (!id) {
-        return;
-      }
-
-      const fetchedPatient = await patientService.getById(id);
-      setPatient(fetchedPatient);
-    };
-
     void fetchPatient();
   }, [id]);
+
+  const handleSubmit = async (values: Omit<HealthCheckEntry, 'id'>) => {
+    if (!id) {
+      return;
+    }
+
+    try {
+      const entry = await patientService.createEntry(id, values);
+      setPatient((current) => current ? { ...current, entries: current.entries.concat(entry) } : current);
+      setModalOpen(false);
+      setError(undefined);
+    } catch (e: unknown) {
+      if (axios.isAxiosError(e)) {
+        setError(e.response?.data?.error ?? 'Invalid input');
+      } else {
+        setError('Unknown error');
+      }
+    }
+  };
 
   if (!patient) {
     return <Typography variant="h6">Loading...</Typography>;
@@ -75,8 +99,21 @@ const PatientPage = ({ diagnoses }: Props) => {
               <EntryDetails key={entry.id} entry={entry} diagnoses={diagnoses} />
             ))
           )}
+
+          <Button variant="contained" onClick={() => setModalOpen(true)}>
+            Add New Entry
+          </Button>
         </Stack>
       </CardContent>
+      <AddEntryModal
+        modalOpen={modalOpen}
+        onClose={() => {
+          setModalOpen(false);
+          setError(undefined);
+        }}
+        onSubmit={handleSubmit}
+        error={error}
+      />
     </Card>
   );
 };
