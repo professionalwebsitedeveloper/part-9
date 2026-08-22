@@ -106,6 +106,7 @@ const PatientPage = ({ diagnoses }: Props) => {
         </Stack>
       </CardContent>
       <AddEntryModal
+        diagnoses={diagnoses}
         modalOpen={modalOpen}
         onClose={() => {
           setModalOpen(false);
