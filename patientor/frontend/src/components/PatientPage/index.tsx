@@ -14,7 +14,7 @@ import FemaleIcon from '@mui/icons-material/Female';
 import TransgenderIcon from '@mui/icons-material/Transgender';
 import axios from 'axios';
 
-import { Diagnosis, Patient, type HealthCheckEntry } from '../../types';
+import { Diagnosis, Entry, Patient } from '../../types';
 import patientService from '../../services/patients';
 import EntryDetails from '../EntryDetails';
 import AddEntryModal from '../AddEntryModal';
@@ -42,7 +42,7 @@ const PatientPage = ({ diagnoses }: Props) => {
     void fetchPatient();
   }, [id]);
 
-  const handleSubmit = async (values: Omit<HealthCheckEntry, 'id'>) => {
+  const handleSubmit = async (values: Omit<Entry, 'id'>) => {
     if (!id) {
       return;
     }

@@ -1,18 +1,18 @@
 import { Dialog, DialogTitle, DialogContent, Divider, Alert } from '@mui/material';
 
 import AddEntryForm from './AddEntryForm';
-import { type HealthCheckEntry } from '../../types';
+import { type Entry } from '../../types';
 
 interface Props {
   modalOpen: boolean;
   onClose: () => void;
-  onSubmit: (values: Omit<HealthCheckEntry, 'id'>) => void;
+  onSubmit: (values: Omit<Entry, 'id'>) => void;
   error?: string;
 }
 
 const AddEntryModal = ({ modalOpen, onClose, onSubmit, error }: Props) => (
   <Dialog fullWidth open={modalOpen} onClose={() => onClose()}>
-    <DialogTitle>New HealthCheck Entry</DialogTitle>
+    <DialogTitle>New Entry</DialogTitle>
     <Divider />
     <DialogContent>
       {error && <Alert severity="error">{error}</Alert>}
